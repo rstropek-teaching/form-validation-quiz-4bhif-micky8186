@@ -1,12 +1,17 @@
 $("#emailMandatory").hide();
 $("#otherMediaChannel").hide();
 let errorVar = 0b011;
+// Remember: Don't repeat yourself. Save the result of the jQuery selection in a local
+// variable. You can access this variable whenever you need access to the submit button.
 (<HTMLButtonElement>$('input[type="submit"], input[type="button"], button')[0]).disabled = true;
 
 $("#firstName").on("change", function(){
+    // !(<HTMLInputElement>this).value would also be possible
     if((<HTMLInputElement>this).value === ""){
         $("#firstNameMandatory").show();
+        // Consider using JavaScript's |= operator
         errorVar = errorVar | 0b001;
+        // Recommended practice: Remove console.log statements before checking in code
         console.log(errorVar);
         (<HTMLButtonElement>$('input[type="submit"], input[type="button"], button')[0]).disabled = true;
     }else{
@@ -17,6 +22,8 @@ $("#firstName").on("change", function(){
 });
 $("#lastName").on("change", function(){
     if((<HTMLInputElement>this).value === ""){
+        // "don't repeat yourself" again. The if and the else clauses of your change handler look
+        // very similar. You could consider using a function instead.
         $("#lastNameMandatory").show();
         errorVar = errorVar | 0b010;
         console.log(errorVar);
